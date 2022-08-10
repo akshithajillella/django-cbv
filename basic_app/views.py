@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, ListView, DetailView
 from django.http import HttpResponse
+from . import models
 
 # Create your views here.
 # FBV
@@ -23,3 +24,15 @@ class IndexView(TemplateView):
         context['injectme'] = 'BASIC INJECTION'
         return context
 
+# listview, detailview
+class SchoolListView(ListView):
+    context_object_name = 'schools'
+    model = models.School
+    # returns school(model name in lower case) + '_list' by default as context dictionary
+
+class SchoolDetailView(DetailView):
+    # set custom name for context dictionary
+    context_object_name = 'school_detail'
+    model = models.School
+    template_name = 'basic_app/school_detail.html'
+    # returns school(model name in lower case) by default as context dictionary
